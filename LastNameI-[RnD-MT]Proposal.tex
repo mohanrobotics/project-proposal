@@ -21,14 +21,31 @@
 \pagestyle{plain}
 
 \section{Introduction}
+Object detection deals with classifying and localizing objects of interest in a given image or frame. In recent years, a great deal of research is done in object detection. It has various use cases such as autonomous cars, anomaly detection, video surveillance and the list goes on. Recent advances in the deep learning architectures, mainly Convolutional Neural Networks (CNN) and the advent of parallel computing through Graphical Processing Units(GPU) has taken object detection to the next level. Deep learning-based object detection methods have proved to perform way better than traditional detection methods that use hand-crafted features like SIFT, SURF, HoG. The ability of CNN architectures like VGG, Inception, DenseNet, ResNet to represent the high-level feature of the image is one of the reasons for the quality performance of the state-of-the-art object detectors. 
+
+However, the performance of any deep learning algorithm depends heavily on the selection of various hyper-parameters that guides and controls the learning process. Each object detector has several hyper-parameters like image re-sizer dimensions, size and scales of prior/anchor boxes, Intersection Over Union (IOU) threshold, number of proposals in addition to the conventional deep learning hyper-parameters like learning rate, momentum and decay rate. The right choice of hyper-parameters here is essential as it plays a significant role in the model's performance. This task of hyper-parameter tuning is challenging as one need to choose the right hyper-parameter from the search space efficiently. Machine learning experts and data scientists have intellectual depth and insight on setting hyper-parameters. Also, the experts conduct many experiments and choose hyper-parameters after many trial and errors. 
 \begin{itemize}
     \item An introduction to the general topic you are covering.
+    \begin{itemize}
+    \item 3-4 sentences on object detection and CNNs in object detection
+    
+    \item 3-4 sentences on importance of deep learning hyper parameters and object detection hyper parameters
+    \item 2-3 sentences on how experts decide the hyper parameters
+    \item 3-4 sentences on Auto Ml in the recent study
+    \item 3-4 general sentences on black box optimizer on deciding the hyper parameters
+    \item 3-4 sentences explaining what this project is about.
+    \end{itemize}
     \item Why is it important?
+    
 \end{itemize}
 
 \subsection{Problem Statement}
 \begin{itemize}
     \item What are you going to solve?
+    \begin{itemize}
+        \item Problems with random and grid search, Computational complexity , deciding the hyper parameters
+        \item How this can be solved using BBO
+    \end{itemize}
     \item How are you evaluating?
 \end{itemize}
 
@@ -36,6 +53,10 @@
 \section{Related Work}
 \begin{itemize}
     \item What have other people done?
+    \begin{itemize}
+        \item Literature on SOTA object detection models
+        \item Literature on BBO techniques
+    \end{itemize}
     \item Why is it not sufficient?
 \end{itemize}
 
