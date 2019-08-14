@@ -21,9 +21,27 @@
 \pagestyle{plain}
 
 \section{Introduction}
-Object detection deals with classifying and localizing objects of interest in a given image or frame. In recent years, a great deal of research is done in object detection. It has various use cases such as autonomous cars, anomaly detection, video surveillance and the list goes on. Recent advances in the deep learning architectures, mainly Convolutional Neural Networks (CNN) and the advent of parallel computing through Graphical Processing Units(GPU) has taken object detection to the next level. Deep learning-based object detection methods have proved to perform way better than traditional detection methods that use hand-crafted features like SIFT, SURF, HoG. The ability of CNN architectures like VGG, Inception, DenseNet, ResNet to represent the high-level feature of the image is one of the reasons for the quality performance of the state-of-the-art object detectors. 
+Object detection deals with classifying and localizing objects of interest in a given image or frame. In recent years, a great deal of research is done in object detection. It has various use cases such as autonomous cars, anomaly detection, medical image analysis, video surveillance and the list goes on. Recent advances in the deep learning architectures, mainly Convolutional Neural Networks (CNN) and the advent of parallel computing through Graphical Processing Units(GPU) has taken object detection to the next level. Deep learning-based object detection methods have proved to perform way better than traditional detection methods that use hand-crafted features(such as SIFT, SURF, HoG, etc.). The ability of CNN architectures (such as VGG, Inception, DenseNet, ResNet etc.,) to represent the high-level feature of the image is one of the reasons for the quality performance of the state-of-the-art object detectors. These CNN architectures form the backbone of most object detectors.
 
-However, the performance of any deep learning algorithm depends heavily on the selection of various hyper-parameters that guides and controls the learning process. Each object detector has several hyper-parameters like image re-sizer dimensions, size and scales of prior/anchor boxes, Intersection Over Union (IOU) threshold, number of proposals in addition to the conventional deep learning hyper-parameters like learning rate, momentum and decay rate. The right choice of hyper-parameters here is essential as it plays a significant role in the model's performance. This task of hyper-parameter tuning is challenging as one need to choose the right hyper-parameter from the search space efficiently. Machine learning experts and data scientists have intellectual depth and insight on setting hyper-parameters. Also, the experts conduct many experiments and choose hyper-parameters after many trial and errors. 
+However, the performance of any deep learning algorithm depends heavily on the selection of various hyper-parameters that guides and controls the learning process. Each object detector has several hyper-parameters like image re-sizer dimensions, size and scales of prior/anchor boxes, Intersection Over Union (IOU) threshold, number of proposals in addition to the conventional deep learning hyper-parameters like learning rate, momentum and decay rate. The right choice of hyper-parameters here is essential as it plays a significant role in the model's performance. This task of hyper-parameter tuning is challenging as one need to choose the right hyper-parameter from the hyper-parameter search space efficiently. Machine learning experts and data scientists have intellectual depth and insight on setting hyper-parameters. Also, the experts conduct many experiments and choose hyper-parameters after many trial and errors. Besides, the hyper-parameters are dataset dependent as the hyper-parameters which works fine for one dataset may not perform better with another dataset.(citation)
+
+The tremendous growth of machine learning has created a need for automating this tedious process by avoiding human intervention. Automated machine learning (AutoML) is a newly emerging field which aims to automate the entire machine learning process. It includes automation of complete training pipeline right from data preprocessing, algorithm selection till setting the right hyper-parameters to obtain a obtain optimal performance. Besides AutoMl , black-box optimization methods also can be applied for the task of hyper-parameter optimization. Recent technical advancements in black-box optimization methods(such as Bayesian optimization, Genetic/Evolutionary algorithms) is getting more focused on hyper-parameter optimization. In this study we will use the AutoMl and black-box optimization methods for the hyper-parameter setting of the  object detectors.
+
+The main objectives of this study are as follows: 
+\begin{itemize}
+    \item A comprehensive literature study on the combined object detection and black-box optimization research fields.
+    \item Defining the hyper-parameter space of the state of the art deep convolutional object detectors 
+    \item Comprehensive evaluation and comparison of  AutoMl and black-box optimization methods for the hyper-parameter optimization specific to the state of the art object detectors on different kind of datasets.
+\end{itemize}
+ 
+
+
+
+
+
+
+
+
 \begin{itemize}
     \item An introduction to the general topic you are covering.
     \begin{itemize}
