@@ -9,7 +9,7 @@
 
 \title{Black-Box Optimization of Object Detector Hyper-Parameters}
 \author{Mohandass Muthuraja}
-\supervisors{Prof. Dr. Paul Pl̈oger\\Second Supervisor \\ Dr. Matias Valdenegr-Toro}
+\supervisors{Prof. Dr. Paul Pl̈oger\\Second Supervisor \\ Dr. Matias Valdenegor-Toro}
 \date{Month 20XX}
 
 % \thirdpartylogo{path/to/your/image}
@@ -21,17 +21,16 @@
 \pagestyle{plain}
 
 \section{Introduction}
-Object detection deals with classifying and localizing objects of interest in a given image or frame. In recent years, a great deal of research is done in object detection. It has various use cases such as autonomous cars, anomaly detection, medical image analysis, video surveillance and the list goes on. Recent advances in the deep learning architectures, mainly Convolutional Neural Networks (CNN) and the advent of parallel computing through Graphical Processing Units(GPU) has taken object detection to the next level. Deep learning-based object detection methods have proved to perform way better than traditional detection methods that use hand-crafted features(such as SIFT, SURF, HoG, etc.). The ability of CNN architectures (such as VGG, Inception, DenseNet, ResNet etc.,) to represent the high-level feature of the image is one of the reasons for the quality performance of the state-of-the-art object detectors. These CNN architectures form the backbone of most object detectors.
+Object detection deals with classifying and localizing objects of interest in a given image or frame. In recent years, a great deal of research is done in object detection. It has various use cases such as autonomous cars, anomaly detection, medical image analysis, video surveillance and the list goes on. Recent advances in the deep learning architectures, mainly Convolutional Neural Networks (CNN) and the advent of parallel computing through Graphical Processing Units(GPU) has taken object detection a step forward. Deep learning-based object detection methods have proved to perform way better than traditional detection methods that use handcrafted features(such as SIFT, SURF, HoG, etc.)\cite{zou2019object}. The ability of CNN architectures (such as VGG\cite{simonyan2014very}, Inception\cite{szegedy2015going}, DenseNet\cite{huang2017densely}, ResNet\cite{he2016deep} etc.,) to represent the high-level features of the image is one of the reasons for the quality performance of the state-of-the-art object detectors. These CNN architectures form the backbone of most object detectors.
 
-However, the performance of any deep learning algorithm depends heavily on the selection of various hyper-parameters that guides and controls the learning process. Each object detector has several hyper-parameters like image re-sizer dimensions, size and scales of prior/anchor boxes, Intersection Over Union (IOU) threshold, number of proposals in addition to the conventional deep learning hyper-parameters like learning rate, momentum and decay rate. The right choice of hyper-parameters here is essential as it plays a significant role in the model's performance. This task of hyper-parameter tuning is challenging as one need to choose the right hyper-parameter from the hyper-parameter search space efficiently. Machine learning experts and data scientists have intellectual depth and insight on setting hyper-parameters. Also, the experts conduct many experiments and choose hyper-parameters after many trial and errors. Besides, the hyper-parameters are dataset dependent as the hyper-parameters which works fine for one dataset may not perform better with another dataset.(citation)
+However, the performance of any deep learning algorithm depends heavily on the selection of various hyper-parameters that guide and controls the learning process. Each object detector has several hyper-parameters like image re-sizer dimensions, size and scales of prior/anchor boxes, Intersection Over Union (IOU) threshold, number of proposals in addition to the conventional deep learning hyper-parameters like learning rate, momentum and decay rate. The right choice of hyper-parameters here is essential as it plays a significant role in the model's performance. This task of hyper-parameter tuning is challenging as one need to choose the right hyper-parameter from the hyper-parameter search space efficiently. Machine learning experts and data scientists have intellectual depth and insight on setting hyper-parameters. Also, the experts conduct many experiments and choose hyper-parameters after many trial and errors. Besides, the hyper-parameters are dataset dependent as the hyper-parameters which works fine for one dataset may not perform better with another dataset\cite{automl_book}.
 
-The tremendous growth of machine learning has created a need for automating this tedious process by avoiding human intervention. Automated machine learning (AutoML) is a newly emerging field which aims to automate the entire machine learning process. It includes automation of complete training pipeline right from data preprocessing, algorithm selection till setting the right hyper-parameters to obtain a obtain optimal performance. Besides AutoMl , black-box optimization methods also can be applied for the task of hyper-parameter optimization. Recent technical advancements in black-box optimization methods(such as Bayesian optimization, Genetic/Evolutionary algorithms) is getting more focused on hyper-parameter optimization. In this study we will use the AutoMl and black-box optimization methods for the hyper-parameter setting of the  object detectors.
-
+The tremendous growth of machine learning has created a need for automating this tedious process by avoiding human intervention. Automated machine learning (AutoML) is a newly emerging field which aims to automate the entire machine learning process. It includes automation of complete training pipeline right from data preprocessing, algorithm selection till setting the right hyper-parameters to obtain a obtain optimal performance\cite{automl_book}. Besides AutoML, black-box optimization methods can also be applied for the task of hyper-parameter optimization. Recent technical advancements in black-box optimization methods(such as Bayesian optimization, Genetic/Evolutionary algorithms) is getting more focused on hyper-parameter optimization. In this study, we will study AutoMl and black-box optimization methods for the task of setting hyper-parameters of object detectors on different datasets.
 The main objectives of this study are as follows: 
 \begin{itemize}
     \item A comprehensive literature study on the combined object detection and black-box optimization research fields.
-    \item Defining the hyper-parameter space of the state of the art deep convolutional object detectors 
-    \item Comprehensive evaluation and comparison of  AutoMl and black-box optimization methods for the hyper-parameter optimization specific to the state of the art object detectors on different kind of datasets.
+    \item Defining the hyper-parameter search space of the state of the art deep convolutional object detectors.
+    \item Comprehensive evaluation and comparison of  AutoMl and black-box optimization methods for hyper-parameter optimization specific to the state of the art object detectors on different datasets.
 \end{itemize}
 % \begin{itemize}
 %     \item An introduction to the general topic you are covering.
@@ -49,16 +48,16 @@ The main objectives of this study are as follows:
 % \end{itemize}
 
 \subsection{Problem Statement}
- In the last decade, there was a breakthrough in one of the most challenging computer vision task of object detection. Classical object detectors that use handcrafted features are not able to meet the performance of the deep learning-based modern-day object detectors. The state of the art object detectors was able to achieve excellent performance on the MS-COCO and PASCAL VOC benchmark datasets. The main practical problem in achieving robust performance using these object detectors is the setting of hyper-parameters as they are heavily dataset dependent and requires experts knowledge. The right choice of hyper-parameters selection from the over-all hyper-parameter space undergoes a lot of trial and errors after conducting several experiments. Also, the diversity of the hyper-parameters turns out to be even more problematic in the task of hyper-parameter optimization because they can be binary, categorical(e.g. activation function), continuous(e.g. learning rates, drop-out probability),  and conditional(e.g. Adam's second momentum is active only when the optimizer is Adam).  The hyper-parameters space of the deep learning-based object detectors is even more as every object detector has its hyper-parameters like re-sizer dimensions, size and scales of prior/anchor boxes, Intersection Over Union (IOU) threshold, number of proposals. One approach to solve this problem involves the use of hyper-parameter optimization methods. Most basic hyper-parameter optimization methods use grid search and random search to select the set of hyper-parameters to obtain better performance. However, both these searches take a considerable amount of time and are computationally expensive. A guided search can reduce the computational complexity and time taken to find the right set of parameters.
- The proposed research work intends to study the applicability of the modern hyper-parameter optimization methods of AutoMl and Black-box optimization. These methods will be used to tune the hyper-parameter particular to the deep-learning-based state of the art object detectors to achieve the optimal performance.  The hyper-parameter optimization task will be evaluated on a variety of datasets. Also, the idea is to guide the tuning process to balance the trade-off between high object detection performance and fewer computations.
-\begin{itemize}
-    \item What are you going to solve?
-    \begin{itemize}
-        \item Problems with random and grid search, Computational complexity , deciding the hyper parameters
-        \item How this can be solved using BBO
-    \end{itemize}
-    \item How are you evaluating?
-\end{itemize}
+In the last decade, there was a breakthrough in one of the most challenging computer vision task of object detection. Classical object detectors that use handcrafted features are not able to meet the performance of the deep learning-based modern-day object detectors\cite{zou2019object}. The state of the art object detectors were able to achieve excellent performance on the MS-COCO\cite{lin2014microsoft} and PASCAL VOC\cite{Everingham10} benchmark datasets. The main challenge in achieving robust performance using these object detectors is the setting of hyper-parameters as they are heavily dataset dependent and requires experts' knowledge. The right choice of hyper-parameter selection from the over-all hyper-parameter space undergoes a lot of trial and error after conducting several experiments. Also, the diversity of the hyper-parameters turns out to be even more problematic in the task of hyper-parameter optimization because they can be binary, categorical(e.g. activation function), continuous(e.g. learning rates, drop-out probability),  and conditional(e.g. Adam's second momentum is active only when the optimizer is Adam)\cite{automl_book}.  The hyper-parameter space of the deep learning-based object detectors is also many in numbers as every object detector has its own hyper-parameters like re-sizer dimensions, size and scales of prior/anchor boxes, Intersection Over Union (IOU) threshold, number of proposals etc., The approach to solve this problem involves the use of hyper-parameter optimization methods after defining the hyper-parameter space of the object detectors. Most basic hyper-parameter optimization methods use grid search\cite{montgomery2001design} and random search\cite{bergstra2012random} to select the set of hyper-parameters to obtain better performance. However, both these searches take a considerable amount of time and are computationally expensive. A guided search can reduce the computational complexity and time taken to find the right set of parameters.  
+AutoML and Black-box optimization techniques have been applied to image classification successfully for neural architecture search and hyper-parameter optimization. Using AutoML and Black-box optimization techniques for object detection is a new open research topic which is gaining more importance among the researchers in the computer vision community. This proposed research work intends to study the applicability of the modern hyper-parameter optimization methods of AutoML and Black-box optimization. These methods will be used to tune the hyper-parameter particular to the deep-learning-based state of the art object detectors to achieve the optimal performance.  The hyper-parameter optimization task will be evaluated on a variety of datasets. Also, the idea is to guide the tuning process to balance the trade-off between high object detection performance and fewer computations.
+% \begin{itemize}
+%     \item What are you going to solve?
+%     \begin{itemize}
+%         \item Problems with random and grid search, Computational complexity , deciding the hyper parameters
+%         \item How this can be solved using BBO
+%     \end{itemize}
+%     \item How are you evaluating?
+% \end{itemize}
 
 
 \section{Related Work}
@@ -66,6 +65,7 @@ The main objectives of this study are as follows:
     \item What have other people done?
     \begin{itemize}
         \item Literature on SOTA object detection models
+        
         \item Literature on BBO techniques
     \end{itemize}
     \item Why is it not sufficient?
@@ -108,21 +108,26 @@ Make sure to include the writing of your report throughout the whole project, no
 \subsection{Deliverables}
 \subsubsection*{Minimum Viable}
 
+% \begin{itemize}
+%     \item Survey
+%     \item Analysis of state of the art
+%     \item Simple simulated use case
+%     \item Demo on youBot or Jenny
+% \end{itemize}
 \begin{itemize}
-    \item Survey
-    \item Analysis of state of the art
-    \item Simple simulated use case
-    \item Demo on youBot or Jenny
+    \item Literature search and state of the art analysis on the  combined object detection and black-box optimization  fields.
+
 \end{itemize}
 
 \subsubsection*{Expected}
 \begin{itemize}
-    \item Comparation of approaches in the robot
+    \item Appropriate experimental design to address the selected research questions.
+    \item Comprehensive evaluation and comparison with the state of the art on the COCO and PASCAL VOC datasets on at least two object detectors.
 \end{itemize}
 
 \subsubsection*{Desired}
 \begin{itemize}
-    \item Integration to scenario
+    \item  Conference or journal paper describing the results from the Thesis
 \end{itemize}
 
 
