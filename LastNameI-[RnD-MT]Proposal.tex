@@ -6,6 +6,7 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{natbib} 
 
 \title{Black-Box Optimization of Object Detector Hyper-Parameters}
 \author{Mohandass Muthuraja}
@@ -61,15 +62,33 @@ AutoML and Black-box optimization techniques have been applied to image classifi
 
 
 \section{Related Work}
-\begin{itemize}
-    \item What have other people done?
-    \begin{itemize}
-        \item Literature on SOTA object detection models
+% \begin{itemize}
+%     \item What have other people done?
+%     \begin{itemize}
+%         \item Literature on SOTA object detection models
         
-        \item Literature on BBO techniques
-    \end{itemize}
-    \item Why is it not sufficient?
-\end{itemize}
+%         \item Literature on BBO techniques
+%     \end{itemize}
+%     \item Why is it not sufficient?
+% \end{itemize}
+
+\subsection{Object Detection}
+Deep learning-based object detectors can be grouped into two types, namely, multi-stage detectors and single-stage detectors. Multi-stage detectors initially involve the selection of regions of interest(ROI) from an image and then detecting the class on those regions. In spite of obtaining remarkable results, multi-stage detectors need more computations. Single-stage detectors are faster than the multi-stage detectors as it does a combined task of locating and then classifying the objects in the image. 
+
+\subsubsection{Multi-stage Detectors}
+
+\textbf{R-CNN} by \citet{girshick2014rich} provided a breakthrough in 2014 by achieving 30\% better performance on the Pascal-VOC 2012 dataset. RCNN has three main steps. First, selective search algorithm was used to generate around 2000 regions on the image. Next, CNN's were used to extract a 4096-dimensional feature vector from those regions. Finally, the extracted features were classified using SVMs. 
+
+\textbf{Fast R-CNN} by \citet{girshick2015fast} sorted out the issues in R-CNN by an alternative approach. First, instead of region proposals, the entire image was fed into CNN's to get a convolutional feature map. Then, the region proposals were determined on the convolutional feature map. Finally, the region proposals that were reshaped by ROI pooling layer were fed into a fully connected layer for classifying the objects. Fast R-CNN is faster because the convolution operation is done only once on the entire image instead of 2000 regions as in the case of R-CNN. 
+
+\textbf{Faster R-CNN} by \citet{ren2015faster} introduced a Region Proposal Network(RPN) for identifying the region proposals which replaced the selective search algorithm in R-CNN and Fast R-CNN. The use of RPN instead of selective search algorithm proves to be more time-efficient and also has a better performance. In, Faster R-CNN, first, the image is fed into CNN's to produce a  convolutional feature map. Then the RPN provides region proposal from the convolutional feature map. Same like Fast R-CNN, these region proposals were reshaped by ROI pooling layer were fed into a fully connected layer for classifying the objects.
+
+\subsubsection{Single stage Detectors}
+\citet{redmon2016you} introduced a fast and accurate object detector called \textbf{YOLO}(You Look Only Once). Unlike the other multi-stage object detectors, YOLO considers object detection as a regression problem to determine the bounding box coordinates of the objects in the image and their corresponding class probabilities. YOLO uses a single neural network to perform the complete object detection. First, YOLO transforms the image into a grid of specific size. Then, in each grid, it considers bounding boxes and the network is trained to determine the bounding box offsets and the class probabilities. YOLO finds its use in applications which involve real-time predictions as it can predict 45 frames per second. The inadequacy of YOLO is that it is not good with smaller objects. To improve the accuracy and to balance the speed-accuracy trade-off, further improvements were made on its successive version YOLO v2 \cite{redmon2017yolo9000}. 
+
+Single ShotMultiBox Detector (\textbf{SSD})  proposed by \citet{liu2016ssd} is another single stage object detector. SSD can overcome the deficit of YOLO as it performs well with smaller objects also. The vital feature of SSD is the multi-scale convolutional bounding box. Instead of the fixed grids in YOLO, SSD initially 'discretizes the output space of bounding boxes into a set of default boxes over different aspect ratios and scales per feature map location.'\cite{liu2016ssd} Despite being three times faster, SSD512 model performs better than faster R-CNN on PASCAL VOC and COCO datasets. 
+
+\textbf{RetinaNet} proposed by \citet{lin2017focal} addresses the foreground-background class imbalance issue in the previous object detectors. RetinaNet has a particular loss function called 'focal loss' loss function. This helps the single-stage detectors to achieve competitive results with the multi-stage detectors by not compromising the speed.  
 
 \subsection{Subsection 1}
 \subsection{Subsection 2}
