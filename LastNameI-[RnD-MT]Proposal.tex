@@ -90,7 +90,26 @@ Single ShotMultiBox Detector (\textbf{SSD})  proposed by \citet{liu2016ssd} is a
 
 \textbf{RetinaNet} proposed by \citet{lin2017focal} addresses the foreground-background class imbalance issue in the previous object detectors. RetinaNet has a particular loss function called 'focal loss' loss function. This helps the single-stage detectors to achieve competitive results with the multi-stage detectors by not compromising the speed.  
 
-\subsection{Subsection 1}
+\subsection{Black-box Hyper parameter Optimization}
+
+Grid search\cite{montgomery2001design} is the primitive and conventional method used for hyper parameter optimization. It is a brute force search algorithm which enumerates all possible set of hyper-parameters from the hyper-parameter space. However, because of the potential increase of the function evaluations with the rise in the number of hyper-parameters, it suffers from an aspect called "curse of dimensionality"\cite{friedman2018recursive}.
+
+Random search\cite{bergstra2012random} samples the hyper-parameter from the defined hyper-parameter space and evaluates those samples. In this way, it reduces the number of evaluation, but it doesn't consider the results from the previous evaluation to sample the next set of hyper-parameters. Due to this, it takes more longer than any guided search algorithm to find the best set of hyper-parameters.  
+
+Bayesian optimization\cite{movckus1975bayesian} is a guided way to find the best combination of hyper-parameters as it considers prior information. Bayesian optimization is used in finding the set of hyper-parameters in various deep learning networks. It has proved to achieve better results with fewer computations when compared to the grid and random search in image classification, speech recognition and natural language modelling \cite{snoek2012practical}\cite{snoek2015scalable}\cite{melis2017state}\cite{dahl2013improving}. In Bayesian optimization, initially a random set of hyper-parameters are evaluated, and then a probabilistic model is fit to this data in the hyper-parameter space. Then, the model is used by a function called acquisition function to determine the next sampling point(set of hyper-parameters) that has to be evaluated. This process goes in iteration until a computational budget is met. The shortcoming of the Bayesian optimization is that it is not robust when the hyper-parameter space is complex and conditional \cite{wang2013bayesian} \cite{swersky2014raiders}.
+Bayesian optimization using Tree Parzen Estimator(TPE) can handle categorical hyper-parameters and can work in parallel.\cite{bergstra2011algorithms}.\cite{feurer_hyperparameter_2018}  
+
+Hyperband by \citet{li2016hyperband} is a reinforcement-based learning approach for hyper-parameter optimization which considers HPO as a non-stochastic infinite-armed bandit problem. Hyperband shows better results than the bayesian optimization that doesn't count low fidelities.\cite{li2016hyperband}\cite{feurer_hyperparameter_2018}
+
+Bayesian Optimization and Hyperband (BOHB) by \citet{falkner2018bohb}  is a combined algorithm of Bayesian optimization(with TPE) and hyperband for HPO.  BOHB is very easy to implement, robust and adaptable for various type of hyper-parameters.  It performs better than the Bayesian optimization and hyperband on a variety of problems and benchmarks. \cite{falkner2018bohb}\cite{feurer_hyperparameter_2018}
+
+Population-based approaches, namely Genetic Algorithm(GA), Genetic Programming(GP), Evolutionary strategy(ES), Evolutionary Programming(EP) and Particle Swarm Optimization have shown remarkable results in optimization problems\cite{coello2007evolutionary}. The most significant advantage of the population-based approach is the evaluations of hyper-parameters can run in parallel.  Co-variance Matrix Adaptation Evolution Strategy (CMA-ES) is a successful population-based approach for hyper-parameter optimization\cite{loshchilov2016cma} and also one of the best performing algorithms for hyper-parameter optimization in the Black-Box Optimization Benchmarking(BBOB) challenge\cite{bbob}. \citet{loshchilov2016cma} has applied CMA-ES for hyper-parameter optimization of convolutional neural network(CNN) for MNIST data classification problem and has parallelly used 30 GPU's.  Particle Swarm Optimization algorithm is also proved beneficial for a hyper-parameter optimization problem. \citet{lorenzo2017particle} has applied Particle Swarm Optimization(PSO) for optimizing the Deep Neural Net(DNN) classifier on the CIFAR-10 dataset. \citet{lorenzo2017hyper} used the PSO to perform the hyper-parameter optimization parallelly and quickly. \cite{feurer_hyperparameter_2018}
+
+
+
+
+
+
 \subsection{Subsection 2}
 
 
